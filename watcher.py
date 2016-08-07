@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 import sys, os
 import time
 import settings
+
 from vidixmlparser import get_item_id
 import azure_cv_analyse
 import update_item_metadata
