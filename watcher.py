@@ -21,18 +21,24 @@ def handle_file(event_file_path):
 
         source_image = get_source_image(event_file_path)
 
+        print("Analysing image using Azure CV")
+
         detected_data = azure_cv_analyse.analyse_image(source_image)
 
+        print("Detected:")
         print(detected_data)
 
-        print("about to update ZONZA")
+        print("About to update ZONZA")
 
         if detected_data["tags"] != "":
             update_item_metadata.update_field(item_id, settings.tags_field, detected_data["tags"])
 
         if detected_data["celebrities"] != "":
             update_item_metadata.update_field(item_id, settings.celebrities_field, detected_data["celebrities"])
-            
+
+        # keep it tidy
+        clean_up(event_file_path)
+
     except Exception, e:
         print e
 
