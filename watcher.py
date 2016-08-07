@@ -26,18 +26,27 @@ def handle_file(event_file_path):
 
         print("Analysing image using Azure CV")
 
-        detected_data = azure_cv_analyse.analyse_image(source_image)
+        analysis_data = azure_cv_analyse.analyse_image(source_image)
+        ocr_data = azure_cv_ocr.ocr_image(source_image)
 
         print("Detected:")
-        print(detected_data)
+        print(analysis_data)
 
         print("About to update ZONZA")
 
-        if detected_data["tags"] != "":
-            update_item_metadata.update_field(item_id, settings.tags_field, detected_data["tags"])
+        if analysis_data["tags"] != "":
+            update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
 
-        if detected_data["celebrities"] != "":
-            update_item_metadata.update_field(item_id, settings.celebrities_field, detected_data["celebrities"])
+        if analysis_data["celebrities"] != "":
+            update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
+
+        if ocr_data["language"] != "":
+            update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
+
+        if ocr_data["text"] != "":
+            update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
+
+
 
         # keep it tidy
         clean_up(event_file_path)
