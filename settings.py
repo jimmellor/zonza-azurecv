@@ -1,5 +1,5 @@
 # Watch for files added here
-watch_location "/home/zonzatransfer"
+watch_location = "/home/zonzatransfer"
 
 # ZONZA Bork Auth token
 auth = {
@@ -31,6 +31,12 @@ tags_field = 'demo_keywords'
 
 #field for detected celebrities
 celebrities_field = 'demo_featured_celebrities'
+
+#field for detected text
+text_field = 'demo_detected_text'
+
+#field for detected language
+lang_field = 'demo_detected_lang'
 
 # test source image
 test_source_image_bin = "jayz.jpg"
