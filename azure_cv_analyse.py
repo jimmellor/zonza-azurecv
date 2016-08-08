@@ -18,8 +18,8 @@ def get_tags(data, conf_threshold=settings.confidence_threshold):
 def get_celebrities(data, conf_threshold=settings.confidence_threshold):
     celeb_str = ""
 
-    for category in data["categories"]
-        if category["name"] == "people_"
+    for category in data["categories"]:
+        if category["name"] == "people_":
             celebrities = category["detail"]["celebrities"]
             for celeb in celebrities:
                 if float(celeb["confidence"]) >= conf_threshold:
