@@ -16,8 +16,8 @@ def update_field(item, field_id, field_value, auth=settings.auth):
 		conn.request("POST", "/v0/item/{}/metadata".format(item), post_body, headers)
 		response = conn.getresponse()
 		data = response.read()
-		print "Updating metadata for: " + "{}/v0/item/{}/metadata".format(settings.url, item)
-		print post_body
+		logging.info("Updating metadata for: {}/v0/item/{}/metadata".format(settings.url, item))
+		logging.info(post_body)
 
 	except Exception as e:
 		logging.warning("[Errno {0}] {1}".format(e.errno, e.strerror))
