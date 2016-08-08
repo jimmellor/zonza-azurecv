@@ -6,25 +6,25 @@ def get_language(data):
 def get_text(data):
     text = ""
     for region in data["regions"]:
-        region_text = ""
+        region_text = u""
         for line in data["regions"][0]["lines"]:
-            line_text = ""
+            line_text = u""
             for word in line["words"]:
-                if line_text != "":
-                    line_text = "{0} {1}".format(line_text, word["text"].encode('utf-8'))
+                if line_text != u"":
+                    line_text = u"{0} {1}".format(line_text, word["text"])
                 else:
                     line_text = word["text"]
             if region_text != "":
                 print region_text
                 print line_text
-                region_text = "{0}\n{1}".format(region_text, line_text)
+                region_text = u"{0}\n{1}".format(region_text.encode('utf-8'), line_text)
             else:
                 region_text = line_text
         if text != "":
-            text = "{0}\n\n{1}".format(text, region_text)
+            text = u"{0}\n\n{1}".format(text, region_text)
         else:
             text = region_text
-    return text
+    return text.encode('utf-8')
 
 def ocr_image(source_image, az_subs_key=settings.subscription_key):
 
