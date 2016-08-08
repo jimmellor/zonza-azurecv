@@ -43,21 +43,21 @@ def ocr_image(source_image, az_subs_key=settings.subscription_key):
         'details': 'Celebrities',
     })
 
-    try:
-        # Read the file into memory
-        f = open(source_image, 'r')
-        post_body = f.read()
-        f.close()
+    # try:
+    # Read the file into memory
+    f = open(source_image, 'r')
+    post_body = f.read()
+    f.close()
 
-        conn = httplib.HTTPSConnection('api.projectoxford.ai')
-        conn.request("POST", "/vision/v1.0/ocr?%s" % params, post_body, headers)
-        response = conn.getresponse()
-        js_data = response.read()
-        data = json.loads(js_data)
-        conn.close()
-        return { 'language' : get_language(data), 'text' : get_text(data) }
-    except Exception as e:
-        logging.warning(e)
+    conn = httplib.HTTPSConnection('api.projectoxford.ai')
+    conn.request("POST", "/vision/v1.0/ocr?%s" % params, post_body, headers)
+    response = conn.getresponse()
+    js_data = response.read()
+    data = json.loads(js_data)
+    conn.close()
+    return { 'language' : get_language(data), 'text' : get_text(data) }
+    # except Exception as e:
+        # logging.warning(e)
 
 if __name__ == "__main__":
     print analyse_image(settings.test_source_image_bin)
