@@ -50,11 +50,9 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
     response = conn.getresponse()
     js_data = response.read()
     data = json.loads(js_data)
-    # print get_tags(data)
-    # # pretty print all the data returned by azure cv
-    # print(json.dumps(data, sort_keys=True, indent=4))
+    # logging.info(get_tags(data))
     conn.close()
-    # return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
+    return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
     # except Exception as e:
         # logging.warning(e)
 
