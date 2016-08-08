@@ -20,43 +20,43 @@ def clean_up(event_file_path):
     os.remove(get_source_image(event_file_path))
 
 def handle_file(event_file_path):
-    try:
-        item_id = get_item_id(event_file_path)
+    # try:
+    item_id = get_item_id(event_file_path)
 
-        source_image = get_source_image(event_file_path)
+    source_image = get_source_image(event_file_path)
 
-        print("Analysing {} using Azure CV".format(source_image))
+    print("Analysing {} using Azure CV".format(source_image))
 
-        analysis_data = azure_cv_analyse.analyse_image(source_image)
-        ocr_data = azure_cv_ocr.ocr_image(source_image)
+    analysis_data = azure_cv_analyse.analyse_image(source_image)
+    ocr_data = azure_cv_ocr.ocr_image(source_image)
 
-        print("Detected:")
-        print(analysis_data)
-        print(ocr_data)
+    print("Detected:")
+    print(analysis_data)
+    print(ocr_data)
 
-        print("Updating ZONZA:")
+    print("Updating ZONZA:")
 
-        if analysis_data != None:
-            if analysis_data["tags"] != "":
-                update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
+    if analysis_data != None:
+        if analysis_data["tags"] != "":
+            update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
 
-            if analysis_data["celebrities"] != "":
-                update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
+        if analysis_data["celebrities"] != "":
+            update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
 
-        if ocr_data != None:
-            if ocr_data["language"] != "":
-                update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
+    if ocr_data != None:
+        if ocr_data["language"] != "":
+            update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
 
-            if ocr_data["text"] != "":
-                update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
+        if ocr_data["text"] != "":
+            update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
 
 
 
-        # keep it tidy
-        clean_up(event_file_path)
+    # keep it tidy
+    clean_up(event_file_path)
 
-    except Exception, e:
-        print e
+    # except Exception, e:
+    #     print e
 
 
 class XMLHandler(PatternMatchingEventHandler):
