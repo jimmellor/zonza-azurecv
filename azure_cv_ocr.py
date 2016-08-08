@@ -1,5 +1,10 @@
 import httplib, urllib, base64, json, sys, settings
 
+import logging
+
+# setup logging
+logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
+
 def get_language(data):
     return data["language"]
 
@@ -52,7 +57,7 @@ def ocr_image(source_image, az_subs_key=settings.subscription_key):
         conn.close()
         return { 'language' : get_language(data), 'text' : get_text(data) }
     except Exception as e:
-        print e
+        logging.warning(e)
 
 if __name__ == "__main__":
     print analyse_image(settings.test_source_image_bin)

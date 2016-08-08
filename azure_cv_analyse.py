@@ -1,5 +1,10 @@
 import httplib, urllib, base64, json, sys, settings
 
+import logging
+
+# setup logging
+logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
+
 def get_tags(data, conf_threshold=settings.confidence_threshold):
     tag_str = ""
     for tag in data["tags"]:
@@ -51,7 +56,7 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
         conn.close()
         return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
     except Exception as e:
-        print e
+        logging.warning(e)
 
 if __name__ == "__main__":
     print analyse_image(settings.test_source_image_bin)
