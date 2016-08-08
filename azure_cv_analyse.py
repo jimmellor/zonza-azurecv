@@ -17,12 +17,16 @@ def get_tags(data, conf_threshold=settings.confidence_threshold):
 
 def get_celebrities(data, conf_threshold=settings.confidence_threshold):
     celeb_str = ""
-    for celeb in data["categories"][0]["detail"]["celebrities"]:
-        if float(celeb["confidence"]) >= conf_threshold:
-            if celeb_str != "":
-                celeb_str = "{0}, {1}".format(celeb_str, celeb["name"])
-            else:
-                celeb_str = celeb["name"]
+
+    for category in data["categories"]
+        if category["name"] == "people_"
+            celebrities = category["detail"]["celebrities"]
+            for celeb in celebrities:
+                if float(celeb["confidence"]) >= conf_threshold:
+                    if celeb_str != "":
+                        celeb_str = "{0}, {1}".format(celeb_str, celeb["name"])
+                    else:
+                        celeb_str = celeb["name"]
     return celeb_str
 
 def analyse_image(source_image, az_subs_key=settings.subscription_key):
