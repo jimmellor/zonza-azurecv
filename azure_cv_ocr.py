@@ -4,7 +4,7 @@ def get_language(data):
     return data["language"]
 
 def get_text(data):
-    text = ""
+    text = u""
     for region in data["regions"]:
         region_text = u""
         for line in data["regions"][0]["lines"]:
@@ -13,11 +13,11 @@ def get_text(data):
                 if line_text != u"":
                     line_text = u"{0} {1}".format(line_text, word["text"])
                 else:
-                    line_text = word["text"]
+                    line_text = u"{0}".format(word["text"])
             if region_text != "":
                 print region_text
                 print line_text
-                region_text = u"{0}\n{1}".format(region_text.encode('utf-8'), line_text)
+                region_text = u"{0}\n{1}".format(region_text, line_text)
             else:
                 region_text = line_text
         if text != "":
