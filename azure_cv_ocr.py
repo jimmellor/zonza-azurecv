@@ -11,15 +11,15 @@ def get_text(data):
             line_text = ""
             for word in line["words"]:
                 if line_text != "":
-                    line_text = "{} {}".format(line_text, word["text"])
+                    line_text = "{0} {1}".format(line_text, word["text"].encode('utf-8'))
                 else:
                     line_text = word["text"]
             if region_text != "":
-                region_text = "{} {}".format(region_text, line_text)
+                region_text = "{0}\n{1}".format(region_text, line_text)
             else:
                 region_text = line_text
         if text != "":
-            text = "{}\n\n{}".format(text, region_text).encode('utf-8')
+            text = "{0}\n\n{1}".format(text, region_text)
         else:
             text = region_text
     return text
