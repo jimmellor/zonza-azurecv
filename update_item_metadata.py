@@ -6,16 +6,16 @@ def update_field(item, field_id, field_value, auth=settings.auth):
 	headers = {'content-type': 'application/json'}
  	headers.update(auth)
 	post_body = json.dumps({field_id: field_value}).encode('utf-8')
-	try:
-		conn = httplib.HTTPConnection(settings.url, settings.port)
-		conn.request("POST", "/v0/item/{}/metadata".format(item), post_body, headers)
-		response = conn.getresponse()
-		data = response.read()
-		print "Updating metadata for: " + "{}/v0/item/{}/metadata".format(settings.url, item)
-		print post_body
-		
-	except Exception as e:
-		print("[Errno {0}] {1}".format(e.errno, e.strerror))
+#	try:
+	conn = httplib.HTTPConnection(settings.url, settings.port)
+	conn.request("POST", "/v0/item/{}/metadata".format(item), post_body, headers)
+	response = conn.getresponse()
+	data = response.read()
+	print "Updating metadata for: " + "{}/v0/item/{}/metadata".format(settings.url, item)
+	print post_body
+
+#	except Exception as e:
+#		print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
 if __name__ == "__main__":
 	print "Updating metadata for {}".format(settings.test_item)

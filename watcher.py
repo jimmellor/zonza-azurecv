@@ -20,7 +20,6 @@ def clean_up(event_file_path):
     os.remove(get_source_image(event_file_path))
 
 def handle_file(event_file_path):
-    sleep(3)
     # try:
     item_id = get_item_id(event_file_path)
 
