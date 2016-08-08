@@ -6,6 +6,7 @@ import settings
 
 from vidixmlparser import get_item_id
 import azure_cv_analyse
+import azure_cv_ocr
 import update_item_metadata
 
 from watchdog.observers import Observer
