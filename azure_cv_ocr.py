@@ -22,7 +22,7 @@ def get_text(data):
             text = u"{0}\n\n{1}".format(text, region_text)
         else:
             text = region_text
-    return urllib.quote(text.encode('utf-8'), safe='')
+    return text.encode('utf-8')
 
 def ocr_image(source_image, az_subs_key=settings.subscription_key):
 
