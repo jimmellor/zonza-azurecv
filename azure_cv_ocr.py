@@ -25,9 +25,7 @@ def get_text(data):
     return text
 
 def ocr_image(source_image, az_subs_key=settings.subscription_key):
-
-    print(source_image)
-
+    
     headers = {
         # Request headers
         'Content-Type': 'application/octet-stream',

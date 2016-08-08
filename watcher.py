@@ -34,7 +34,7 @@ def handle_file(event_file_path):
         print(analysis_data)
         print(ocr_data)
 
-        print("About to update ZONZA")
+        print("Updating ZONZA:")
 
         if analysis_data != None:
             if analysis_data["tags"] != "":
