@@ -1,5 +1,10 @@
 import httplib, urllib, base64, json, sys, settings
 
+import logging
+
+# setup logging
+logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
+
 def get_tags(data, conf_threshold=settings.confidence_threshold):
     tag_str = ""
     for tag in data["tags"]:
@@ -38,7 +43,7 @@ def detect_image_tags(source_image=settings.test_source_image, az_subs_key=setti
         conn.close()
         return get_tags(data)
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        logging.warning("[Errno {0}] {1}".format(e.errno, e.strerror))
 
 if __name__ == "__main__":
     print detect_image_tags()

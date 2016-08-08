@@ -1,6 +1,11 @@
 import httplib
 import json
 import settings
+import logging
+
+# setup logging
+logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
+
 
 def update_field(item, field_id, field_value, auth=settings.auth):
 	headers = {'content-type': 'application/json'}
@@ -15,7 +20,7 @@ def update_field(item, field_id, field_value, auth=settings.auth):
 		print post_body
 
 	except Exception as e:
-		print("[Errno {0}] {1}".format(e.errno, e.strerror))
+		logging.warning("[Errno {0}] {1}".format(e.errno, e.strerror))
 
 if __name__ == "__main__":
 	print "Updating metadata for {}".format(settings.test_item)
