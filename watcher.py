@@ -49,7 +49,7 @@ def handle_file(event_file_path):
             update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
 
     if ocr_data != None:
-        if ocr_data["language"] != "":
+        if ocr_data["language"] != "" and ocr_data["language"] != "unk":
             update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
 
         if ocr_data["text"] != "":
