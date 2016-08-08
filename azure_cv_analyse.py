@@ -22,8 +22,6 @@ def get_celebrities(data, conf_threshold=settings.confidence_threshold):
 
 def analyse_image(source_image, az_subs_key=settings.subscription_key):
 
-    print(source_image)
-
     headers = {
         # Request headers
         'Content-Type': 'application/octet-stream',
@@ -37,7 +35,7 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
     })
 
     try:
-        # Read the file into memory. It will never be big.
+        # Read the file into memory
         f = open(source_image, 'r')
         post_body = f.read()
         f.close()

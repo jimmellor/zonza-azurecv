@@ -1,14 +1,14 @@
 # Watch for files added here
-watch_location = "/home/zonzatransfer"
+watch_location = "/Users/mellor/Development/zonza-azurecv"
 
 # ZONZA Bork Auth token
 auth = {
-    'Bork-Token': "BORK TOKEN",
-    'Bork-Username': "USER NAME",
+    'Bork-Token': "ZGM1ZmJhMDktZjY4YS00YjQwLThlNmYtYjNjYTAwNzFmM2U5",
+    'Bork-Username': "jim.mellor@hogarthww.com",
 }
 
 # Azure subscription key
-subscription_key = "AZURE SUBSCRIPTION KEY"
+subscription_key = "1aa6ae8b25d7436388e872bc9bea55b2"
 
 # Only tag assets with Azure CV confidence great than this threshold
 confidence_threshold = 0.4
@@ -32,7 +32,7 @@ tags_field = 'demo_keywords'
 #field for detected celebrities
 celebrities_field = 'demo_featured_celebrities'
 
-#field for detected text
+#field for detected text       
 text_field = 'demo_detected_text'
 
 #field for detected language
@@ -40,4 +40,3 @@ lang_field = 'demo_detected_lang'
 
 # test source image
 test_source_image_bin = "jayz.jpg"
-
