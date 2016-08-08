@@ -3,6 +3,11 @@
 import sys, os
 import time
 import settings
+import logging
+
+# setup logging
+logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
+
 
 from vidixmlparser import get_item_id
 import azure_cv_analyse
@@ -25,16 +30,16 @@ def handle_file(event_file_path):
 
     source_image = get_source_image(event_file_path)
 
-    print("Analysing {} using Azure CV".format(source_image))
+    logging.info("Analysing {} using Azure CV".format(source_image))
 
     analysis_data = azure_cv_analyse.analyse_image(source_image)
     ocr_data = azure_cv_ocr.ocr_image(source_image)
 
-    print("Detected:")
-    print(analysis_data)
-    print(ocr_data)
+    logging.info("Detected:")
+    logging.info(analysis_data)
+    logging.info(ocr_data)
 
-    print("Updating ZONZA:")
+    logging.info("Updating ZONZA:")
 
     if analysis_data != None:
         if analysis_data["tags"] != "":

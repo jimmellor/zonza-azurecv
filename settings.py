@@ -1,3 +1,5 @@
+log_file = "/var/log/zonza-azure-cv.log"
+
 # Watch for files added here
 watch_location = "/Users/mellor/Development/zonza-azurecv"
 
