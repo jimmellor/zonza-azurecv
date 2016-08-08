@@ -19,7 +19,7 @@ def get_celebrities(data, conf_threshold=settings.confidence_threshold):
     celeb_str = ""
 
     for category in data["categories"]:
-        if category["name"] == "people_":
+        if "people" in category["name"]:
             celebrities = category["detail"]["celebrities"]
             for celeb in celebrities:
                 if float(celeb["confidence"]) >= conf_threshold:
