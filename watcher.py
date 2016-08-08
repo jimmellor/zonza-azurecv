@@ -35,24 +35,24 @@ def handle_file(event_file_path):
     analysis_data = azure_cv_analyse.analyse_image(source_image)
     ocr_data = azure_cv_ocr.ocr_image(source_image)
 
-    logging.info("Detected:")
-    logging.info(analysis_data)
-    logging.info(ocr_data)
-
-    logging.info("Updating ZONZA:")
+    logging.info("Analyse detected {}, OCR detected {}".format(analysis_data, ocr_data))
 
     if analysis_data != None:
         if analysis_data["tags"] != "":
+            logging.info("Updating ZONZA:")
             update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
 
         if analysis_data["celebrities"] != "":
+            logging.info("Updating ZONZA:")
             update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
 
     if ocr_data != None:
         if ocr_data["language"] != "" and ocr_data["language"] != "unk":
+            logging.info("Updating ZONZA:")
             update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
 
         if ocr_data["text"] != "":
+            logging.info("Updating ZONZA:")
             update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
 
 

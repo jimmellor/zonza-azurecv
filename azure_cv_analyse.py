@@ -50,7 +50,7 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
     response = conn.getresponse()
     js_data = response.read()
     data = json.loads(js_data)
-    logging.info(get_tags(data))
+    logging.info(data)
     conn.close()
     return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
     # except Exception as e:

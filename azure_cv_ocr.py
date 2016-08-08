@@ -54,6 +54,7 @@ def ocr_image(source_image, az_subs_key=settings.subscription_key):
     response = conn.getresponse()
     js_data = response.read()
     data = json.loads(js_data)
+    logging.info(data)
     conn.close()
     return { 'language' : get_language(data), 'text' : get_text(data) }
     # except Exception as e:
