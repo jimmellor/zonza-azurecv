@@ -5,7 +5,7 @@ import settings
 def update_field(item, field_id, field_value, auth=settings.auth):
 	headers = {'content-type': 'application/json'}
  	headers.update(auth)
-	post_body = json.dumps({field_id: field_value}).encode('utf-8')
+	post_body = json.dumps({field_id: field_value})
 #	try:
 	conn = httplib.HTTPConnection(settings.url, settings.port)
 	conn.request("POST", "/v0/item/{}/metadata".format(item), post_body, headers)

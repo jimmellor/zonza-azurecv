@@ -15,8 +15,6 @@ def get_text(data):
                 else:
                     line_text = u"{0}".format(word["text"])
             if region_text != "":
-                print region_text
-                print line_text
                 region_text = u"{0}\n{1}".format(region_text, line_text)
             else:
                 region_text = line_text
@@ -24,7 +22,7 @@ def get_text(data):
             text = u"{0}\n\n{1}".format(text, region_text)
         else:
             text = region_text
-    return urllib.quote(text, safe='')
+    return urllib.quote(text.encode('utf-8'), safe='')
 
 def ocr_image(source_image, az_subs_key=settings.subscription_key):
 
