@@ -68,8 +68,8 @@ class XMLHandler(PatternMatchingEventHandler):
     def on_modified(self, event):
         self.process(event)
 
-    def on_created(self, event):
-        self.process(event)
+    # def on_created(self, event):
+    #     self.process(event)
 
 
 if __name__ == '__main__':
