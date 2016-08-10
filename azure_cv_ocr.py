@@ -4,11 +4,7 @@ import base64
 import json
 import sys
 import settings
-import logging
-
-# setup logging
-logging.basicConfig(filename=settings.log_file,format=settings.log_format,datefmt=settings.log_date_format,level=logging.DEBUG)
-
+from syslogger import logger
 
 def get_language(data):
     return data["language"]

@@ -15,13 +15,12 @@ auth = {
     'Bork-Username': config.get("ZONZA API", "Username"),
 }
 
-# General
-log_file = config.get("General", "Log file location")
-log_format = "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
-log_date_format = "%m-%d %H:%M"
-
 # Watch for files added here
 watch_location = config.get("General", "Watch folder location")
+
+# Logging
+log_svr_addr = config.get("Logging", "Log server address")
+log_svr_port = int(config.get("Logging", "Log server port"))
 
 # Ignore values that are below this threshold
 confidence_threshold = float(config.get("General", "Confidence Threshold"))

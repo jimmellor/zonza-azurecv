@@ -1,10 +1,7 @@
 import httplib
 import json
 import settings
-import logging
-
-# setup logging
-logging.basicConfig(filename=settings.log_file,format=settings.log_format,datefmt=settings.log_date_format,level=logging.DEBUG)
+from syslogger import logger
 
 def update_field(item, field_id, field_value, auth=settings.auth):
 	headers = {'content-type': 'application/json'}

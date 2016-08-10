@@ -3,10 +3,7 @@
 import sys, os
 import time
 import settings
-import logging
-
-# setup logging
-logging.basicConfig(filename=settings.log_file,format=settings.log_format,datefmt=settings.log_date_format,level=logging.DEBUG)
+from syslogger import logger
 
 from vidixmlparser import get_item_id
 import azure_cv_analyse

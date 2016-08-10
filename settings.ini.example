@@ -8,9 +8,10 @@ Username: <username@zonza.tv>
 Token: <BORK TOKEN>
 
 [General]
-Log file location: /var/log/zonza-azure-cv.log
 Confidence threshold: 0.4
 Watch folder location: /path/to/watch/folder
 
-
+[Logging]
+Log server address: <address>
+Log server port: <port>
 
