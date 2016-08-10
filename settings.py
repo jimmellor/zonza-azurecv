@@ -1,29 +1,31 @@
-log_file = "/var/log/zonza-azure-cv.log"
+import ConfigParser
 
-# Watch for files added here
-watch_location = "/Users/mellor/Development/zonza-azurecv"
+config = ConfigParser.ConfigParser()
+config.read("settings.ini")
 
-# ZONZA Bork Auth token
+#Azure
+subscription_key = config.get("Azure", "Subscription Key")
+
+# ZONZA
+url = config.get("ZONZA API", "Host")
+port = config.get("ZONZA API", "Port")
+
 auth = {
-    'Bork-Token': "ZGM1ZmJhMDktZjY4YS00YjQwLThlNmYtYjNjYTAwNzFmM2U5",
-    'Bork-Username': "jim.mellor@hogarthww.com",
+    'Bork-Token': config.get("ZONZA API", "Token"),
+    'Bork-Username': config.get("ZONZA API", "Username"),
 }
 
-# Azure subscription key
-subscription_key = "1aa6ae8b25d7436388e872bc9bea55b2"
+# General
+log_file = config.get("General", "Log file location")
+log_format = "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
+log_date_format = "%m-%d %H:%M"
 
-# Only tag assets with Azure CV confidence great than this threshold
-confidence_threshold = 0.4
+# Watch for files added here
+watch_location = config.get("General", "Watch folder location")
 
-# ZONZA Config:
-# ZONZA API URL
-url = 'api.zonza.tv'
-port = 8080
+# Ignore values that are below this threshold
+confidence_threshold = config.get("General", "Confidence Threshold")
 
-# for testing bork
-test_item = 'VX-750794'
-test_field_id = 'demo_keywords'
-test_field_value = 'test, testing, 123'
 
 # type of image files to expect in the watch location
 source_image_ext = ".jpeg"
@@ -39,6 +41,3 @@ text_field = 'demo_detected_text'
 
 #field for detected language
 lang_field = 'demo_detected_lang'
-
-# test source image
-test_source_image_bin = "jayz.jpg"

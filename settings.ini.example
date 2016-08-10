@@ -1,0 +1,18 @@
+[Azure]
+Subscription key: <AZURE SUBS KEY>
+
+[ZONZA API]
+Host: api.zonza.tv
+Port: 8080
+Username: <username@zonza.tv>
+Token: <BORK TOKEN>
+
+[General]
+Log file location: /var/log/zonza-azure-cv.log
+Confidence threshold: 0.4
+Watch folder location: /Users/mellor/Development/zonza-azurecv/watcher
+
+
+
+
+

@@ -1,9 +1,14 @@
-import httplib, urllib, base64, json, sys, settings
-
+import httplib
+import urllib
+import base64
+import json
+import sys
+import settings
 import logging
 
 # setup logging
-logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
+logging.basicConfig(filename=settings.log_file,format=settings.log_format,datefmt=settings.log_date_format,level=logging.DEBUG)
+
 
 def get_tags(data, conf_threshold=settings.confidence_threshold):
     tag_str = ""
@@ -19,7 +24,8 @@ def get_celebrities(data, conf_threshold=settings.confidence_threshold):
     celeb_str = ""
 
     for category in data["categories"]:
-        if "people" in category["name"]:
+        if "detail" in category.keys():
+            logging.info("Category data: " + json.dumps(category))
             celebrities = category["detail"]["celebrities"]
             for celeb in celebrities:
                 if float(celeb["confidence"]) >= conf_threshold:
@@ -43,24 +49,21 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
         'details': 'Celebrities',
     })
 
-    # try:
+    try:
     # Read the file into memory
-    f = open(source_image, 'r')
-    post_body = f.read()
-    f.close()
+        f = open(source_image, 'r')
+        post_body = f.read()
+        f.close()
 
-    conn = httplib.HTTPSConnection('api.projectoxford.ai')
-    conn.request("POST", "/vision/v1.0/analyze?%s" % params, post_body, headers)
-    response = conn.getresponse()
-    js_data = response.read()
-    data = json.loads(js_data)
-    logging.info(data)
-    conn.close()
-    return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
-    # except Exception as e:
-        # logging.warning(e)
-
-if __name__ == "__main__":
-    print analyse_image(settings.test_source_image_bin)
-
+        conn = httplib.HTTPSConnection('api.projectoxford.ai')
+        conn.request("POST", "/vision/v1.0/analyze?%s" % params, post_body, headers)
+        response = conn.getresponse()
+        js_data = response.read()
+        logging.debug("Azure Analyse returned {}".format(js_data))
+        data = json.loads(js_data)
+        logging.info(data)
+        conn.close()
+        return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
+    except Exception as e:
+        logging.warning(e)
 

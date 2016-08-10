@@ -6,8 +6,7 @@ import settings
 import logging
 
 # setup logging
-logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
-
+logging.basicConfig(filename=settings.log_file,format=settings.log_format,datefmt=settings.log_date_format,level=logging.DEBUG)
 
 from vidixmlparser import get_item_id
 import azure_cv_analyse
@@ -23,44 +22,44 @@ def get_source_image(event_file_path):
 def clean_up(event_file_path):
     os.remove(event_file_path)
     os.remove(get_source_image(event_file_path))
-
+    
 def handle_file(event_file_path):
     if os.path.isfile(event_file_path):
-        # try:
-        item_id = get_item_id(event_file_path)
+        try:
+            item_id = get_item_id(event_file_path)
 
-        source_image = get_source_image(event_file_path)
+            source_image = get_source_image(event_file_path)
 
-        logging.info("Analysing {} using Azure CV".format(source_image))
+            logging.info("Analysing {} using Azure CV".format(source_image))
 
-        analysis_data = azure_cv_analyse.analyse_image(source_image)
-        ocr_data = azure_cv_ocr.ocr_image(source_image)
+            analysis_data = azure_cv_analyse.analyse_image(source_image)
+            ocr_data = azure_cv_ocr.ocr_image(source_image)
 
-        logging.info("Analyse detected {}, OCR detected {}".format(analysis_data, ocr_data))
+            logging.info("Analyse detected {}, OCR detected {}".format(analysis_data, ocr_data))
 
-        if analysis_data != None:
-            if analysis_data["tags"] != "":
-                logging.info("Updating ZONZA:")
-                update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
+            if analysis_data != None:
+                if analysis_data["tags"] != "":
+                    logging.info("Updating ZONZA:")
+                    update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
 
-            if analysis_data["celebrities"] != "":
-                logging.info("Updating ZONZA:")
-                update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
+                if analysis_data["celebrities"] != "":
+                    logging.info("Updating ZONZA:")
+                    update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
 
-        if ocr_data != None:
-            if ocr_data["language"] != "" and ocr_data["language"] != "unk":
-                logging.info("Updating ZONZA:")
-                update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
+            if ocr_data != None:
+                if ocr_data["language"] != "" and ocr_data["language"] != "unk":
+                    logging.info("Updating ZONZA:")
+                    update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
 
-            if ocr_data["text"] != "":
-                logging.info("Updating ZONZA:")
-                update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
+                if ocr_data["text"] != "":
+                    logging.info("Updating ZONZA:")
+                    update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
 
-        # keep it tidy
-        clean_up(event_file_path)
+            # keep it tidy
+            clean_up(event_file_path)
 
-    # except Exception, e:
-    #     print e
+        except Exception, e:
+            print e
 
 
 class XMLHandler(PatternMatchingEventHandler):

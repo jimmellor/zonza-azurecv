@@ -1,21 +1,26 @@
-import httplib, urllib, base64, json, sys, settings
-
+import httplib
+import urllib
+import base64
+import json
+import sys
+import settings
 import logging
 
 # setup logging
-logging.basicConfig(filename=settings.log_file,level=logging.DEBUG)
+logging.basicConfig(filename=settings.log_file,format=settings.log_format,datefmt=settings.log_date_format,level=logging.DEBUG)
+
 
 def get_language(data):
     return data["language"]
 
 def get_text(data):
-    text = u""
+    text = ""
     for region in data["regions"]:
-        region_text = u""
+        region_text = ""
         for line in data["regions"][0]["lines"]:
-            line_text = u""
+            line_text = ""
             for word in line["words"]:
-                if line_text != u"":
+                if line_text != "":
                     line_text = u"{0} {1}".format(line_text, word["text"])
                 else:
                     line_text = u"{0}".format(word["text"])
@@ -28,6 +33,7 @@ def get_text(data):
         else:
             text = region_text
     return text.encode('utf-8')
+
 
 def ocr_image(source_image, az_subs_key=settings.subscription_key):
 
@@ -43,24 +49,19 @@ def ocr_image(source_image, az_subs_key=settings.subscription_key):
         'details': 'Celebrities',
     })
 
-    # try:
-    # Read the file into memory
-    f = open(source_image, 'r')
-    post_body = f.read()
-    f.close()
+    try:
+        # Read the file into memory
+        f = open(source_image, 'r')
+        post_body = f.read()
+        f.close()
 
-    conn = httplib.HTTPSConnection('api.projectoxford.ai')
-    conn.request("POST", "/vision/v1.0/ocr?%s" % params, post_body, headers)
-    response = conn.getresponse()
-    js_data = response.read()
-    data = json.loads(js_data)
-    logging.info(data)
-    conn.close()
-    return { 'language' : get_language(data), 'text' : get_text(data) }
-    # except Exception as e:
-        # logging.warning(e)
-
-if __name__ == "__main__":
-    print analyse_image(settings.test_source_image_bin)
-
-
+        conn = httplib.HTTPSConnection('api.projectoxford.ai')
+        conn.request("POST", "/vision/v1.0/ocr?%s" % params, post_body, headers)
+        response = conn.getresponse()
+        js_data = response.read()
+        logging.debug("Azure OCR returned {}".format(js_data))
+        data = json.loads(js_data)
+        conn.close()
+        return { 'language' : get_language(data), 'text' : get_text(data) }
+    except Exception as e:
+        logging.warning(e)

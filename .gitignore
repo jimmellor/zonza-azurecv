@@ -89,4 +89,4 @@ ENV/
 .ropeproject
 
 # Specific to this project
-settings.py
+settings.ini
