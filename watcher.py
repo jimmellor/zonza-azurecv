@@ -22,7 +22,7 @@ def get_source_image(event_file_path):
 def clean_up(event_file_path):
     os.remove(event_file_path)
     os.remove(get_source_image(event_file_path))
-    
+
 def handle_file(event_file_path):
     if os.path.isfile(event_file_path):
         try:
@@ -59,7 +59,7 @@ def handle_file(event_file_path):
             clean_up(event_file_path)
 
         except Exception, e:
-            print e
+            logging.warning(e)
 
 
 class XMLHandler(PatternMatchingEventHandler):
