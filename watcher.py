@@ -39,24 +39,24 @@ def handle_file(event_file_path):
 
             if analysis_data != None:
                 if analysis_data["tags"] != "":
-                    logging.info("Updating ZONZA:")
+                    logging.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
 
                 if analysis_data["celebrities"] != "":
-                    logging.info("Updating ZONZA:")
+                    logging.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
 
             if ocr_data != None:
                 if ocr_data["language"] != "" and ocr_data["language"] != "unk":
-                    logging.info("Updating ZONZA:")
+                    logging.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
 
                 if ocr_data["text"] != "":
-                    logging.info("Updating ZONZA:")
+                    logging.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
 
             # keep it tidy
-            #clean_up(event_file_path)
+            clean_up(event_file_path)
 
         except Exception, e:
             logging.warning(e)

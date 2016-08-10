@@ -25,7 +25,6 @@ def get_celebrities(data, conf_threshold=settings.confidence_threshold):
 
     for category in data["categories"]:
         if "detail" in category.keys():
-            print "got detail"
             celebrities = category["detail"]["celebrities"]
             for celeb in celebrities:
                 if celeb["confidence"] >= conf_threshold:
