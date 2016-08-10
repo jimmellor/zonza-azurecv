@@ -27,36 +27,36 @@ def handle_file(event_file_path):
 
             source_image = get_source_image(event_file_path)
 
-            logging.debug("Analysing {} using Azure CV".format(source_image))
+            logger.debug("Analysing {} using Azure CV".format(source_image))
 
             analysis_data = azure_cv_analyse.analyse_image(source_image)
             ocr_data = azure_cv_ocr.ocr_image(source_image)
 
-            logging.debug("Analyse detected {}, OCR detected {}".format(analysis_data, ocr_data))
+            logger.debug("Analyse detected {}, OCR detected {}".format(analysis_data, ocr_data))
 
             if analysis_data != None:
                 if analysis_data["tags"] != "":
-                    logging.debug("Updating ZONZA:")
+                    logger.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.tags_field, analysis_data["tags"])
 
                 if analysis_data["celebrities"] != "":
-                    logging.debug("Updating ZONZA:")
+                    logger.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.celebrities_field, analysis_data["celebrities"])
 
             if ocr_data != None:
                 if ocr_data["language"] != "" and ocr_data["language"] != "unk":
-                    logging.debug("Updating ZONZA:")
+                    logger.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.lang_field, ocr_data["language"])
 
                 if ocr_data["text"] != "":
-                    logging.debug("Updating ZONZA:")
+                    logger.debug("Updating ZONZA:")
                     update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
 
             # keep it tidy
             clean_up(event_file_path)
 
         except Exception, e:
-            logging.warning(e)
+            logger.warning(e)
 
 
 class XMLHandler(PatternMatchingEventHandler):

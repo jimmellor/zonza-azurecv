@@ -54,10 +54,10 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
         conn.request("POST", "/vision/v1.0/analyze?%s" % params, post_body, headers)
         response = conn.getresponse()
         js_data = response.read()
-        logging.debug("Azure Analyse returned {}".format(js_data))
+        logger.debug("Azure Analyse returned {}".format(js_data))
         data = json.loads(js_data)
         conn.close()
         return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
     except Exception as e:
-        logging.warning(e)
+        logger.warning(e)
 
