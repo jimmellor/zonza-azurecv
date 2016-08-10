@@ -10,9 +10,7 @@ Token: <BORK TOKEN>
 [General]
 Log file location: /var/log/zonza-azure-cv.log
 Confidence threshold: 0.4
-Watch folder location: /Users/mellor/Development/zonza-azurecv/watcher
-
-
+Watch folder location: /path/to/watch/folder
 
 
 
