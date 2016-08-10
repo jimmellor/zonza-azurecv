@@ -5,11 +5,11 @@ from logging.handlers import SysLogHandler
 import settings
 
 class ContextFilter(logging.Filter):
-  hostname = socket.gethostname()
+	hostname = socket.gethostname()
 
-  def filter(self, record):
-    record.hostname = ContextFilter.hostname
-    return True
+	def filter(self, record):
+		record.hostname = ContextFilter.hostname
+		return True
 
 
 logger = logging.getLogger()
