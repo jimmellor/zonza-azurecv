@@ -25,10 +25,10 @@ def get_celebrities(data, conf_threshold=settings.confidence_threshold):
 
     for category in data["categories"]:
         if "detail" in category.keys():
-            logging.info("Category data: " + json.dumps(category))
+            print "got detail"
             celebrities = category["detail"]["celebrities"]
             for celeb in celebrities:
-                if float(celeb["confidence"]) >= conf_threshold:
+                if celeb["confidence"] >= conf_threshold:
                     if celeb_str != "":
                         celeb_str = "{0}, {1}".format(celeb_str, celeb["name"])
                     else:
@@ -50,7 +50,7 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
     })
 
     try:
-    # Read the file into memory
+        # Read the file into memory
         f = open(source_image, 'r')
         post_body = f.read()
         f.close()
@@ -61,7 +61,6 @@ def analyse_image(source_image, az_subs_key=settings.subscription_key):
         js_data = response.read()
         logging.debug("Azure Analyse returned {}".format(js_data))
         data = json.loads(js_data)
-        logging.info(data)
         conn.close()
         return { 'tags' : get_tags(data), 'celebrities' : get_celebrities(data) }
     except Exception as e:

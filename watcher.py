@@ -30,12 +30,12 @@ def handle_file(event_file_path):
 
             source_image = get_source_image(event_file_path)
 
-            logging.info("Analysing {} using Azure CV".format(source_image))
+            logging.debug("Analysing {} using Azure CV".format(source_image))
 
             analysis_data = azure_cv_analyse.analyse_image(source_image)
             ocr_data = azure_cv_ocr.ocr_image(source_image)
 
-            logging.info("Analyse detected {}, OCR detected {}".format(analysis_data, ocr_data))
+            logging.debug("Analyse detected {}, OCR detected {}".format(analysis_data, ocr_data))
 
             if analysis_data != None:
                 if analysis_data["tags"] != "":
@@ -56,7 +56,7 @@ def handle_file(event_file_path):
                     update_item_metadata.update_field(item_id, settings.text_field, ocr_data["text"])
 
             # keep it tidy
-            clean_up(event_file_path)
+            #clean_up(event_file_path)
 
         except Exception, e:
             logging.warning(e)

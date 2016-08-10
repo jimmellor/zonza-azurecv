@@ -24,8 +24,7 @@ log_date_format = "%m-%d %H:%M"
 watch_location = config.get("General", "Watch folder location")
 
 # Ignore values that are below this threshold
-confidence_threshold = config.get("General", "Confidence Threshold")
-
+confidence_threshold = float(config.get("General", "Confidence Threshold"))
 
 # type of image files to expect in the watch location
 source_image_ext = ".jpeg"
